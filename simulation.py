@@ -1,4 +1,9 @@
-import pybullet as p
+import pybullet as pb
+import time
 
-physicsClient = p.connect(p.GUI)
-p.disconnect()
+physicsClient = pb.connect(pb.GUI)
+for i in range(1000):
+    pb.stepSimulation()
+    time.sleep(1/60)
+    print(i)
+pb.disconnect()
