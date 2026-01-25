@@ -7,7 +7,7 @@ physicsClient = pb.connect(pb.GUI)
 pb.setAdditionalSearchPath(pybullet_data.getDataPath())
 
 planeId = pb.loadURDF("plane.urdf") #load floor plane
-pb.loadSDF("box.sdf") #load box
+pb.loadSDF("boxes.sdf") #load box
 pb.setGravity(0,0,-9.8) #set gravity
 
 for i in range(1000): #simulate for 1000 iterations
