@@ -7,6 +7,9 @@ physicsClient = pb.connect(pb.GUI)
 pb.setAdditionalSearchPath(pybullet_data.getDataPath())
 
 planeId = pb.loadURDF("plane.urdf") #load floor plane
+
+robotId = pb.loadURDF("body.urdf") #load robot plane
+
 pb.loadSDF("world.sdf") #load world
 pb.setGravity(0,0,-9.8) #set gravity
 
