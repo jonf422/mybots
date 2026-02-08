@@ -16,16 +16,18 @@ pb.setGravity(0,0,-9.8) #set gravity
 
 ps.Prepare_To_Simulate(robotId) #prepare pyrosim for sensor simulation
 backLegSensorValues = np.zeros(1000)
+frontLegSensorValues = np.zeros(1000)
 
 
 for i in range(1000): #simulate for 5000 iterations
     pb.stepSimulation()
 
     backLegSensorValues[i] = ps.Get_Touch_Sensor_Value_For_Link("BackLeg")
+    frontLegSensorValues[i] = ps.Get_Touch_Sensor_Value_For_Link("FrontLeg")
 
     time.sleep(1/60)
     #print(i) #print iteration
 
 pb.disconnect()
 np.save("data/backLegSensorValues.npy", backLegSensorValues, True)
-print(backLegSensorValues)
+np.save("data/frontLegSensorValues.npy", frontLegSensorValues, True)
