@@ -15,10 +15,10 @@ pb.loadSDF("world.sdf") #load world
 pb.setGravity(0,0,-9.8) #set gravity
 
 ps.Prepare_To_Simulate(robotId) #prepare pyrosim for sensor simulation
-backLegSensorValues = np.zeros(10000)
+backLegSensorValues = np.zeros(1000)
 
 
-for i in range(5000): #simulate for 5000 iterations
+for i in range(1000): #simulate for 5000 iterations
     pb.stepSimulation()
 
     backLegSensorValues[i] = ps.Get_Touch_Sensor_Value_For_Link("BackLeg")
@@ -27,4 +27,5 @@ for i in range(5000): #simulate for 5000 iterations
     #print(i) #print iteration
 
 pb.disconnect()
+np.save("data/backLegSensorValues.npy", backLegSensorValues, True)
 print(backLegSensorValues)
