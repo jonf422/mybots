@@ -22,9 +22,11 @@ frontLegSensorValues = np.zeros(1000)
 for i in range(1000): #simulate for 5000 iterations
     pb.stepSimulation()
 
-    backLegSensorValues[i] = ps.Get_Touch_Sensor_Value_For_Link("BackLeg")
+    backLegSensorValues[i] = ps.Get_Touch_Sensor_Value_For_Link("BackLeg") #get touch sensor data for front and back leg
     frontLegSensorValues[i] = ps.Get_Touch_Sensor_Value_For_Link("FrontLeg")
 
+    ps.Set_Motor_For_Joint(bodyIndex = robotId, jointName = b'Torso_BackLeg', controlMode = pb.POSITION_CONTROL, targetPosition = -np.pi/4, maxForce = 500)
+    
     time.sleep(1/60)
     #print(i) #print iteration
 
