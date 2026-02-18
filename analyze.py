@@ -5,7 +5,7 @@ backLeg = np.load("data/backLegSensorValues.npy")
 frontLeg = np.load("data/frontLegSensorValues.npy")
 
 
-plt.plot(backLeg, color="red", linewidth=3)
-plt.plot(frontLeg, color="blue", linewidth=3)
+plt.plot(backLeg, color="red", linewidth=4)
+plt.plot(frontLeg, color="blue", linewidth=2)
 plt.legend()
 plt.show()
