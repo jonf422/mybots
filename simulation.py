@@ -21,6 +21,12 @@ class SIMULATION:
         pb.setGravity(c.gravX,c.gravY,c.gravZ) #set gravity
 
     def __del__(self):
+        '''
+        for s in self.robot.sensors:
+            self.robot.sensors[s].Save_Values()
+        for m in self.robot.motors:
+            self.robot.motors[m].Save_Values()
+        '''
         pb.disconnect()
 
 
@@ -29,9 +35,7 @@ class SIMULATION:
             pb.stepSimulation()
 
             self.robot.Sense(i)
-
-            #ps.Set_Motor_For_Joint(bodyIndex = robotId, jointName = b'Torso_BackLeg', controlMode = pb.POSITION_CONTROL, targetPosition = bl_targetAngles[i], maxForce = 500)
-            #ps.Set_Motor_For_Joint(bodyIndex = robotId, jointName = b'Torso_FrontLeg', controlMode = pb.POSITION_CONTROL, targetPosition = fl_targetAngles[i], maxForce = 500)
+            self.robot.Act(i)
 
             time.sleep(c.timestep)
             #print(i) #print iteration
