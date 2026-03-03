@@ -27,7 +27,9 @@ def Generate_Brain():
     ps.Send_Sensor_Neuron(name=0, linkName="Torso")
     ps.Send_Sensor_Neuron(name=1, linkName="BackLeg")
     ps.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
-    
+
+    ps.Send_Motor_Neuron(name=3, jointName="Torso_BackLeg")
+    ps.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
     
     ps.End()
 
