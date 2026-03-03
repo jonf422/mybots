@@ -7,7 +7,7 @@ def Create_World():
     ps.Send_Cube(name="Box", pos=[-4,4,.5], size=[1,1,1])
     ps.End()
 
-def Create_Robot():
+def Generate_Body():
     ps.Start_URDF("body.urdf")
 
     ps.Send_Cube(name="Torso", pos=[1.5,0,1.5], size=[1,1,1])
@@ -21,5 +21,13 @@ def Create_Robot():
     
     ps.End()
 
+def Generate_Brain():
+    ps.Start_NeuralNetwork("brain.nndf")
+
+    ps.Send_Sensor_Neuron(name=0, linkName="Torso")
+    
+    ps.End()
+
 Create_World()
-Create_Robot()
+Generate_Body()
+Generate_Brain()
