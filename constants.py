@@ -2,7 +2,7 @@ import numpy as np
 
 #simulation
 iterations = 1000
-timestep = 1/60
+timestep = 1/30
 
 #gravity
 gravX = 0
