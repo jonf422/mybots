@@ -25,6 +25,9 @@ def Generate_Brain():
     ps.Start_NeuralNetwork("brain.nndf")
 
     ps.Send_Sensor_Neuron(name=0, linkName="Torso")
+    ps.Send_Sensor_Neuron(name=1, linkName="BackLeg")
+    ps.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
+    
     
     ps.End()
 
