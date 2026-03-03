@@ -33,3 +33,5 @@ class ROBOT:
         for motor in self.motors.values():
             motor.Set_Value(self.robot, t)
         
+    def Think():
+        pass
