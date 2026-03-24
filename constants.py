@@ -18,3 +18,7 @@ fl_phaseShift = 0
 bl_amplitude = np.pi/8
 bl_frequency = 3
 bl_phaseShift = np.pi
+
+
+#Evolution
+numberOfGenerations = 10

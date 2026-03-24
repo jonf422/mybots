@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import pyrosim.pyrosim as ps
+import random
 
 class SOLUTION:
 
@@ -12,7 +13,7 @@ class SOLUTION:
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
-        os.system("python simulate.py")
+        os.system("python simulate.py DIRECT")
         with open("fitness.txt", "r") as file:
             self.fitness = float(file.read())
 
@@ -53,3 +54,9 @@ class SOLUTION:
                 ps.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+3, weight=self.weights[currentRow][currentColumn])
 
         ps.End()
+
+    def Mutate(self):
+        randRow = random.randint(0,2)
+        randCol = random.randint(0,1)
+
+        self.weights[randRow, randCol] = 2*random.random()-1

@@ -11,8 +11,11 @@ import time
 
 
 class SIMULATION:
-    def __init__(self):
-        self.physicsClient = pb.connect(pb.GUI) #set up pybullet
+    def __init__(self, mode):
+        if mode == "DIRECT":
+            self.physicsClient = pb.connect(pb.DIRECT) #set up pybullet
+        else:
+            self.physicsClient = pb.connect(pb.GUI)
         pb.setAdditionalSearchPath(pybullet_data.getDataPath())
 
         self.world = WORLD()
