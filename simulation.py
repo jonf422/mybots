@@ -40,3 +40,6 @@ class SIMULATION:
 
             time.sleep(c.timestep)
             #print(i) #print iteration
+    
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()

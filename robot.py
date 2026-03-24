@@ -30,7 +30,7 @@ class ROBOT:
         self.motors = {}
         for jointName in ps.jointNamesToIndices:
             self.motors[jointName] = MOTOR(jointName)
-            print(jointName)
+            #print(jointName)
         
     def Act(self, t):
         for n in self.nn.Get_Neuron_Names():
@@ -39,14 +39,24 @@ class ROBOT:
                 desiredAngle = self.nn.Get_Value_Of(n)
                 self.motors[jointName].Set_Value(self.robot, desiredAngle)
                 jointName = jointName.decode("utf-8")
-                print(n)
-                print(jointName)
-                print(desiredAngle)
-                print()
+                #print(n)
+                #print(jointName)
+                #print(desiredAngle)
+                #print()
 
         #for motor in self.motors.values():
          #   motor.Set_Value(self.robot, desiredAngle)
 
     def Think(self):
         self.nn.Update()
-        self.nn.Print()
+        #self.nn.Print()
+    
+    def Get_Fitness(self):
+        stateOfLinkZero = pb.getLinkState(self.robot,0)
+        #print(stateOfLinkZero)
+        positionOfLinkZero = stateOfLinkZero[0]
+        #print(positionOfLinkZero)
+        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        #print(xCoordinateOfLinkZero)
+        with open("fitness.txt", "w") as file:
+            file.write(str(xCoordinateOfLinkZero))
