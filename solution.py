@@ -9,11 +9,11 @@ class SOLUTION:
         self.weights = np.random.rand(3,2)
         self.weights = 2*self.weights-1
 
-    def Evaluate(self):
+    def Evaluate(self, mode):
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
-        os.system("python simulate.py DIRECT")
+        os.system(f"python simulate.py {mode}")
         with open("fitness.txt", "r") as file:
             self.fitness = float(file.read())
 

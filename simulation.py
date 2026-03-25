@@ -12,7 +12,8 @@ import time
 
 class SIMULATION:
     def __init__(self, mode):
-        if mode == "DIRECT":
+        self.mode = mode
+        if self.mode == "DIRECT":
             self.physicsClient = pb.connect(pb.DIRECT) #set up pybullet
         else:
             self.physicsClient = pb.connect(pb.GUI)
@@ -41,7 +42,7 @@ class SIMULATION:
             self.robot.Think()
             self.robot.Act(i)
 
-            time.sleep(c.timestep)
+            if self.mode == "GUI": time.sleep(c.timestep)
             #print(i) #print iteration
     
     def Get_Fitness(self):
