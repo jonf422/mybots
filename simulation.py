@@ -11,8 +11,9 @@ import time
 
 
 class SIMULATION:
-    def __init__(self, mode):
+    def __init__(self, mode, ID):
         self.mode = mode
+        self.ID = ID
         if self.mode == "DIRECT":
             self.physicsClient = pb.connect(pb.DIRECT) #set up pybullet
         else:
@@ -20,7 +21,7 @@ class SIMULATION:
         pb.setAdditionalSearchPath(pybullet_data.getDataPath())
 
         self.world = WORLD()
-        self.robot = ROBOT()
+        self.robot = ROBOT(self.ID)
 
         pb.setGravity(c.gravX,c.gravY,c.gravZ) #set gravity
 

@@ -1,7 +1,7 @@
 import os
-import hillclimber
+import parallelHillClimber
 
 
-hc = hillclimber.HILL_CLIMBER()
-hc.Evolve("GUI")
-hc.Show_Best()
+phc = parallelHillClimber.PARALLEL_HILL_CLIMBER()
+phc.Evolve("DIRECT")
+#phc.Show_Best()

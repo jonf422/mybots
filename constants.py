@@ -22,3 +22,4 @@ bl_phaseShift = np.pi
 
 #Evolution
 numberOfGenerations = 5
+populationSize = 2
