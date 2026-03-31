@@ -38,35 +38,56 @@ class SOLUTION:
     def Create_Body(self):
         ps.Start_URDF("body.urdf")
 
+        #Torso
         ps.Send_Cube(name="Torso", pos=[0,0,1], size=[1,1,1])
 
+        #Front Leg
         ps.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg", type="revolute",position=[0,.5,1], jointAxis="1 0 0")
         ps.Send_Cube(name="FrontLeg", pos=[0,0.5,0], size=[.2,1,.2])
+        ps.Send_Joint(name="FrontLeg_LowerFrontLeg", parent="FrontLeg", child="LowerFrontLeg", type="revolute", position=[0,1,0], jointAxis="1 0 0")
+        ps.Send_Cube(name="LowerFrontLeg", pos=[0,0,-0.5], size=[.2,.2,1])
 
+        #Back Leg
         ps.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position=[0,-.5,1], jointAxis="1 0 0")
         ps.Send_Cube(name="BackLeg", pos=[0,-.5,0], size=[.2,1,.2])
+        ps.Send_Joint(name="BackLeg_LowerBackLeg", parent="BackLeg", child="LowerBackLeg", type="revolute", position=[0,-1,0], jointAxis="1 0 0")
+        ps.Send_Cube(name="LowerBackLeg", pos=[0,0,-0.5], size=[.2,.2,1])
         
+        #Left Leg
         ps.Send_Joint(name="Torso_LeftLeg", parent="Torso", child="LeftLeg", type="revolute", position=[-.5,0,1], jointAxis="0 1 0")
         ps.Send_Cube(name="LeftLeg", pos=[-.5,0,0], size=[1.0,.2,.2])
+        ps.Send_Joint(name="LeftLeg_LowerLeftLeg", parent="LeftLeg", child="LowerLeftLeg", type="revolute", position=[-1,0,0], jointAxis="0 1 0")
+        ps.Send_Cube(name="LowerLeftLeg", pos=[0,0,-0.5], size=[.2,.2,1])
 
+        #Right Leg
         ps.Send_Joint(name="Torso_RightLeg", parent="Torso", child="RightLeg", type="revolute", position=[.5,0,1], jointAxis="0 1 0")
         ps.Send_Cube(name="RightLeg", pos=[.5,0,0], size=[1.0,.2,.2])
+        ps.Send_Joint(name="RightLeg_LowerRightLeg", parent="RightLeg", child="LowerRightLeg", type="revolute", position=[1,0,0], jointAxis="0 1 0")
+        ps.Send_Cube(name="LowerRightLeg", pos=[0,0,-0.5], size=[.2,.2,1])
         
         ps.End()
 
     def Create_Brain(self):
         ps.Start_NeuralNetwork(f"brain{self.myID}.nndf")
 
-        ps.Send_Sensor_Neuron(name=0, linkName="Torso")
-        ps.Send_Sensor_Neuron(name=1, linkName="BackLeg")
-        ps.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
-        ps.Send_Sensor_Neuron(name=3, linkName="LeftLeg")
-        ps.Send_Sensor_Neuron(name=4, linkName="RightLeg")
+        #ps.Send_Sensor_Neuron(name=0, linkName="Torso")
+        #ps.Send_Sensor_Neuron(name=1, linkName="BackLeg")
+        #ps.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
+        #ps.Send_Sensor_Neuron(name=3, linkName="LeftLeg")
+        #ps.Send_Sensor_Neuron(name=4, linkName="RightLeg")
+        ps.Send_Sensor_Neuron(name=0, linkName="LowerFrontLeg")
+        ps.Send_Sensor_Neuron(name=1, linkName="LowerBackLeg")
+        ps.Send_Sensor_Neuron(name=2, linkName="LowerLeftLeg")
+        ps.Send_Sensor_Neuron(name=3, linkName="LowerRightLeg")
 
-        ps.Send_Motor_Neuron(name=5, jointName="Torso_BackLeg")
-        ps.Send_Motor_Neuron(name=6, jointName="Torso_FrontLeg")
-        ps.Send_Motor_Neuron(name=7, jointName="Torso_LeftLeg")
-        ps.Send_Motor_Neuron(name=8, jointName="Torso_RightLeg")
+        ps.Send_Motor_Neuron(name=4, jointName="Torso_BackLeg")
+        ps.Send_Motor_Neuron(name=5, jointName="Torso_FrontLeg")
+        ps.Send_Motor_Neuron(name=6, jointName="Torso_LeftLeg")
+        ps.Send_Motor_Neuron(name=7, jointName="Torso_RightLeg")
+        ps.Send_Motor_Neuron(name=8, jointName="FrontLeg_LowerFrontLeg")
+        ps.Send_Motor_Neuron(name=9, jointName="BackLeg_LowerBackLeg")
+        ps.Send_Motor_Neuron(name=10, jointName="LeftLeg_LowerLeftLeg")
+        ps.Send_Motor_Neuron(name=11, jointName="RightLeg_LowerRightLeg")
 
     
         for currentRow in range(c.numSensorNeurons):

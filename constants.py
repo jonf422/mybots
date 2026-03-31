@@ -19,10 +19,12 @@ bl_amplitude = np.pi/8
 bl_frequency = 3
 bl_phaseShift = np.pi
 
+motorJointRange = .2
+
 #Neurons
-numSensorNeurons = 5
-numMotorNeurons = 4
+numSensorNeurons = 4
+numMotorNeurons = 8
 
 #Evolution
-numberOfGenerations = 1
-populationSize = 1
+numberOfGenerations = 10
+populationSize = 10
