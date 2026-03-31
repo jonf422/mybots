@@ -41,10 +41,10 @@ class SOLUTION:
         ps.Send_Cube(name="Torso", pos=[0,0,1], size=[1,1,1])
 
         
-        ps.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position=[0,-.5,1])
+        ps.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position=[0,-.5,1], jointAxis="0 1 0")
         ps.Send_Cube(name="BackLeg", pos=[0,-.5,0], size=[.2,1,.2])
         
-        ps.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg", type="revolute",position=[0,.5,1])
+        ps.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg", type="revolute",position=[0,.5,1], jointAxis="0 1 0")
         ps.Send_Cube(name="FrontLeg", pos=[0,0.5,0], size=[.2,1,.2])
         
         ps.End()
