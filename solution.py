@@ -40,12 +40,17 @@ class SOLUTION:
 
         ps.Send_Cube(name="Torso", pos=[0,0,1], size=[1,1,1])
 
-        
-        ps.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position=[0,-.5,1], jointAxis="0 1 0")
+        ps.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg", type="revolute",position=[0,.5,1], jointAxis="1 0 0")
+        ps.Send_Cube(name="FrontLeg", pos=[0,0.5,0], size=[.2,1,.2])
+
+        ps.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position=[0,-.5,1], jointAxis="1 0 0")
         ps.Send_Cube(name="BackLeg", pos=[0,-.5,0], size=[.2,1,.2])
         
-        ps.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg", type="revolute",position=[0,.5,1], jointAxis="0 1 0")
-        ps.Send_Cube(name="FrontLeg", pos=[0,0.5,0], size=[.2,1,.2])
+        ps.Send_Joint(name="Torso_LeftLeg", parent="Torso", child="LeftLeg", type="revolute", position=[-.5,0,1], jointAxis="0 1 0")
+        ps.Send_Cube(name="LeftLeg", pos=[-.5,0,0], size=[1.0,.2,.2])
+
+        ps.Send_Joint(name="Torso_RightLeg", parent="Torso", child="RightLeg", type="revolute", position=[.5,0,1], jointAxis="0 1 0")
+        ps.Send_Cube(name="RightLeg", pos=[.5,0,0], size=[1.0,.2,.2])
         
         ps.End()
 
@@ -55,14 +60,18 @@ class SOLUTION:
         ps.Send_Sensor_Neuron(name=0, linkName="Torso")
         ps.Send_Sensor_Neuron(name=1, linkName="BackLeg")
         ps.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
+        ps.Send_Sensor_Neuron(name=3, linkName="LeftLeg")
+        ps.Send_Sensor_Neuron(name=4, linkName="RightLeg")
 
-        ps.Send_Motor_Neuron(name=3, jointName="Torso_BackLeg")
-        ps.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
+        ps.Send_Motor_Neuron(name=5, jointName="Torso_BackLeg")
+        ps.Send_Motor_Neuron(name=6, jointName="Torso_FrontLeg")
+        ps.Send_Motor_Neuron(name=7, jointName="Torso_LeftLeg")
+        ps.Send_Motor_Neuron(name=8, jointName="Torso_RightLeg")
 
     
         for currentRow in range(c.numSensorNeurons):
             for currentColumn in range(c.numMotorNeurons):
-                ps.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+3, weight=self.weights[currentRow][currentColumn])
+                ps.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+c.numSensorNeurons, weight=self.weights[currentRow][currentColumn])
 
         ps.End()
 

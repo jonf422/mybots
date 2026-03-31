@@ -20,8 +20,8 @@ bl_frequency = 3
 bl_phaseShift = np.pi
 
 #Neurons
-numSensorNeurons = 3
-numMotorNeurons = 2
+numSensorNeurons = 5
+numMotorNeurons = 4
 
 #Evolution
 numberOfGenerations = 1
