@@ -3,12 +3,13 @@ import os
 import pyrosim.pyrosim as ps
 import random
 import time
+import constants as c
 
 class SOLUTION:
 
     def __init__(self, ID):
         self.myID = ID
-        self.weights = np.random.rand(3,2)
+        self.weights = np.random.rand(c.numSensorNeurons,c.numMotorNeurons)
         self.weights = 2*self.weights-1
 
     def Start_Simulation(self, mode):
@@ -37,14 +38,14 @@ class SOLUTION:
     def Create_Body(self):
         ps.Start_URDF("body.urdf")
 
-        ps.Send_Cube(name="Torso", pos=[1.5,0,1.5], size=[1,1,1])
+        ps.Send_Cube(name="Torso", pos=[0,0,1], size=[1,1,1])
 
         
-        ps.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position=[1,0,1])
-        ps.Send_Cube(name="BackLeg", pos=[-0.5,0,-.5], size=[1,1,1])
+        ps.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position=[0,-.5,1])
+        ps.Send_Cube(name="BackLeg", pos=[0,-.5,0], size=[.2,1,.2])
         
-        ps.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg", type="revolute",position=[2,0,1])
-        ps.Send_Cube(name="FrontLeg", pos=[0.5,0,-0.5], size=[1,1,1])
+        ps.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg", type="revolute",position=[0,.5,1])
+        ps.Send_Cube(name="FrontLeg", pos=[0,0.5,0], size=[.2,1,.2])
         
         ps.End()
 
@@ -59,15 +60,15 @@ class SOLUTION:
         ps.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
 
     
-        for currentRow in range(3):
-            for currentColumn in range(2):
+        for currentRow in range(c.numSensorNeurons):
+            for currentColumn in range(c.numMotorNeurons):
                 ps.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+3, weight=self.weights[currentRow][currentColumn])
 
         ps.End()
 
     def Mutate(self):
-        randRow = random.randint(0,2)
-        randCol = random.randint(0,1)
+        randRow = random.randint(0,c.numSensorNeurons-1)
+        randCol = random.randint(0,c.numMotorNeurons-1)
 
         self.weights[randRow, randCol] = 2*random.random()-1
 
