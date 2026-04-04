@@ -19,7 +19,7 @@ bl_amplitude = np.pi/8
 bl_frequency = 3
 bl_phaseShift = np.pi
 
-motorJointRange = .2
+motorJointRange = .5
 
 #Neurons
 numSensorNeurons = 4

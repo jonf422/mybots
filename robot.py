@@ -9,13 +9,14 @@ import os
 
 class ROBOT:
     def __init__(self, ID):
-        self.robot = pb.loadURDF("body.urdf") #load robot
+        self.robot = pb.loadURDF(f"body{ID}.urdf") #load robot
         self.nn = NEURAL_NETWORK(f"brain{ID}.nndf")
         self.ID = ID
 
         ps.Prepare_To_Simulate(self.robot) #prepare pyrosim for sensor simulation
         self.Prepare_to_Sense()
         self.Prepare_to_Act()
+        os.system(f"del body{self.ID}.urdf")
         os.system(f"del brain{self.ID}.nndf")
 
     #Sensors

@@ -33,13 +33,13 @@ class SOLUTION:
 
     def Create_World(self):
 
-        ps.Start_SDF("world.sdf")
+        ps.Start_SDF(f"world{self.myID}.sdf")
 
         ps.Send_Cube(name="Box", pos=[-4,4,.5], size=[1,1,1])
         ps.End()
 
     def Create_Body(self):
-        ps.Start_URDF("body.urdf")
+        ps.Start_URDF(f"body{self.myID}.urdf")
 
         #Torso
         ps.Send_Cube(name="Torso", pos=[0,0,1], size=[1,1,1])

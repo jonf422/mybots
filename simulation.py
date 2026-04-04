@@ -20,7 +20,7 @@ class SIMULATION:
             self.physicsClient = pb.connect(pb.GUI)
         pb.setAdditionalSearchPath(pybullet_data.getDataPath())
 
-        self.world = WORLD()
+        self.world = WORLD(self.ID)
         self.robot = ROBOT(self.ID)
 
         pb.setGravity(c.gravX,c.gravY,c.gravZ) #set gravity
