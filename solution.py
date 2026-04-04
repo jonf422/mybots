@@ -12,7 +12,8 @@ class SOLUTION:
         self.weights = np.random.rand(c.numSensorNeurons,c.numMotorNeurons)
         self.weights = 2*self.weights-1
 
-        #self.legLengths = np.random.rand(4,2)
+        self.legLengths = 3*np.random.rand(1,2)+.5
+
 
     def Start_Simulation(self, mode):
         self.Create_World()
@@ -101,8 +102,11 @@ class SOLUTION:
     def Mutate(self):
         randRow = random.randint(0,c.numSensorNeurons-1)
         randCol = random.randint(0,c.numMotorNeurons-1)
-
         self.weights[randRow, randCol] = 2*random.random()-1
+
+        randlength = random.randint(0,1)
+        self.legLengths[0, randlength] = 3*random.random()+.5
+        print(f'Upper legs: {self.legLengths[0,0]} Lower legs: {self.legLengths[0,1]}')
 
     def Set_ID(self, ID):
         self.myID = ID
