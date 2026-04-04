@@ -12,6 +12,8 @@ class SOLUTION:
         self.weights = np.random.rand(c.numSensorNeurons,c.numMotorNeurons)
         self.weights = 2*self.weights-1
 
+        #self.legLengths = np.random.rand(4,2)
+
     def Start_Simulation(self, mode):
         self.Create_World()
         self.Create_Body()
