@@ -12,7 +12,7 @@ class SOLUTION:
         self.weights = np.random.rand(c.numSensorNeurons,c.numMotorNeurons)
         self.weights = 2*self.weights-1
 
-        self.legLengths = 3*np.random.rand(1,2)+.5 #upper/lower leg lengths ranging .5-3.5
+        self.legLengths = 2*np.random.rand(1,2)+.5 #upper/lower leg lengths ranging .5-3.5
 
 
     def Start_Simulation(self, mode):
@@ -35,7 +35,10 @@ class SOLUTION:
 
         ps.Start_SDF(f"world{self.myID}.sdf")
 
-        ps.Send_Cube(name="Box", pos=[-4,4,.5], size=[1,1,1])
+        for i in range(-5,5):
+            for j in range(-5,5):
+                if random.random() < .2:
+                    ps.Send_Cube(name="Box", pos=[i,j,.5], size=[1,1,1])
         ps.End()
 
     def Create_Body(self):
@@ -105,7 +108,7 @@ class SOLUTION:
         self.weights[randRow, randCol] = 2*random.random()-1
 
         randlength = random.randint(0,1)
-        self.legLengths[0, randlength] = 3*random.random()+.5
+        self.legLengths[0, randlength] = 2*random.random()+.5
         print(f'Upper legs: {self.legLengths[0,0]} Lower legs: {self.legLengths[0,1]}')
 
     def Set_ID(self, ID):

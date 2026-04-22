@@ -27,4 +27,4 @@ numMotorNeurons = 8
 
 #Evolution
 numberOfGenerations = 10
-populationSize = 1
+populationSize = 5
