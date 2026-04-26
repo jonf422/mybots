@@ -62,8 +62,8 @@ class ROBOT:
         #print(positionOfLinkZero)
         xCoordinateOfLinkZero = basePosition[0]
         yCoordinateOfLinkZero = basePosition[1]
-        print(xCoordinateOfLinkZero)
-        print(yCoordinateOfLinkZero)
+        #print(xCoordinateOfLinkZero)
+        #print(yCoordinateOfLinkZero)
         fitness = np.sqrt(xCoordinateOfLinkZero**2 + yCoordinateOfLinkZero**2)
         with open(f"tmp{self.ID}.txt", "w") as file:
             file.write(str(fitness))

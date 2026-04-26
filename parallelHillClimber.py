@@ -1,15 +1,24 @@
-import solution
+import solutionA
+import solutionB
 import constants as c
 import copy
+import numpy as np
 
 class PARALLEL_HILL_CLIMBER:
 
     def __init__(self):
-        self.parents = {}
+        self.parentsA = {}
+        self.parentsB = {}
         self.nextAvailableID = 0
         for i in range(c.populationSize):
-            self.parents[i] = solution.SOLUTION(self.nextAvailableID)
+            self.parentsA[i] = solutionA.SOLUTION(self.nextAvailableID)
             self.nextAvailableID += 1
+        for i in range(c.populationSize):
+            self.parentsB[i] = solutionB.SOLUTION(self.nextAvailableID)
+            self.nextAvailableID +=1
+        
+        self.fitnessMatrixA = np.zeros((c.populationSize, c.numberOfGenerations))
+        self.fitnessMatrixB = np.zeros((c.populationSize, c.numberOfGenerations))
 
     def Evaluate(self, solutions, mode):
         for i in solutions:
@@ -19,39 +28,84 @@ class PARALLEL_HILL_CLIMBER:
             solutions[i].Wait_For_Simulation_To_End()
 
     def Evolve(self, mode):
-            self.Evaluate(self.parents, mode)
+            self.Evaluate(self.parentsA, mode)
+            self.Evaluate(self.parentsB, mode)
 
             for currentGeneration in range(c.numberOfGenerations):
-                self.Evolve_For_One_Generation("DIRECT")
+                self.Evolve_For_One_Generation("DIRECT", currentGeneration)
+            
+            # Save fitness matrices for both variants
+            np.savetxt("fitnessMatrix_A.txt", self.fitnessMatrixA)
+            np.save("fitnessMatrix_A.npy", self.fitnessMatrixA)
+            np.savetxt("fitnessMatrix_B.txt", self.fitnessMatrixB)
+            np.save("fitnessMatrix_B.npy", self.fitnessMatrixB)
+            print("Fitness matrices saved for A and B.")
 
-    def Evolve_For_One_Generation(self, mode):
+    def Evolve_For_One_Generation(self, mode, currentGeneration):
         self.Spawn()
         self.Mutate()
-        self.Evaluate(self.children, mode)
+        self.Evaluate(self.childrenA, mode)
+        self.Evaluate(self.childrenB, mode)
+        self.Record_Fitness(currentGeneration)
         self.Print()
         self.Select()
 
     def Spawn(self):
-        self.children = {}
-        for i in self.parents.keys():
-            self.children[i] = copy.deepcopy(self.parents[i])
-            self.children[i].Set_ID(self.nextAvailableID)
+        self.childrenA = {}
+        self.childrenB = {}
+
+        for i in self.parentsA.keys():
+            self.childrenA[i] = copy.deepcopy(self.parentsA[i])
+            self.childrenA[i].Set_ID(self.nextAvailableID)
+            self.nextAvailableID += 1
+        
+        for i in self.parentsB.keys():
+            self.childrenB[i] = copy.deepcopy(self.parentsB[i])
+            self.childrenB[i].Set_ID(self.nextAvailableID)
             self.nextAvailableID += 1
 
+
     def Mutate(self):
-        for i in self.children.keys():
-            self.children[i].Mutate()
+        for i in self.childrenA.keys():
+            self.childrenA[i].Mutate()
+        for i in self.childrenB.keys():
+            self.childrenB[i].Mutate()
 
     def Select(self):
-        for key in self.parents.keys():
-            if self.parents[key].fitness < self.children[key].fitness:
-                self.parents[key] = self.children[key]
+        for key in self.parentsA.keys():
+            if self.parentsA[key].fitness < self.childrenA[key].fitness:
+                self.parentsA[key] = self.childrenA[key]
+
+        for key in self.parentsB.keys():
+            if self.parentsB[key].fitness < self.childrenB[key].fitness:
+                self.parentsB[key] = self.childrenB[key]
+
+    def Record_Fitness(self, currentGeneration):
+        for i in self.childrenA.keys():
+            self.fitnessMatrixA[i, currentGeneration] = self.childrenA[i].fitness
+        for i in self.childrenB.keys():
+            self.fitnessMatrixB[i, currentGeneration] = self.childrenB[i].fitness
 
     def Print(self):
-        for key in self.parents.keys():
-            print(f"\nParent's fitness: {self.parents[key].fitness}, Child's fitness:, {self.children[key].fitness}\n")
+        print("\n--- Population A ---")
+        for key in self.parentsA.keys():
+            print(f"Parent fitness: {self.parentsA[key].fitness:.4f} | Child fitness: {self.childrenA[key].fitness:.4f}")
+
+        print("\n--- Population B ---")
+        for key in self.parentsB.keys():
+            print(f"Parent fitness: {self.parentsB[key].fitness:.4f} | Child fitness: {self.childrenB[key].fitness:.4f}")
+
 
     def Show_Best(self):
-        lowestFitnessParent = max(self.parents.values(), key=lambda parent: parent.fitness)
-        lowestFitnessParent.Start_Simulation("GUI")
+        bestA = max(self.parentsA.values(), key=lambda p: p.fitness)
+        bestB = max(self.parentsB.values(), key=lambda p: p.fitness)
+
+        print(f"\nBest A fitness: {bestA.fitness:.4f}")
+        print(f"Best B fitness: {bestB.fitness:.4f}")
+
+        print("Showing best A...")
+        bestA.Start_Simulation("GUI")
+
+        print("Showing best B...")
+        bestB.Start_Simulation("GUI")
         
