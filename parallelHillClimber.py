@@ -7,6 +7,7 @@ import numpy as np
 class PARALLEL_HILL_CLIMBER:
 
     def __init__(self):
+        self.Create_World() #Frozen Noise
         self.parentsA = {}
         self.parentsB = {}
         self.nextAvailableID = 0
@@ -19,6 +20,17 @@ class PARALLEL_HILL_CLIMBER:
         
         self.fitnessMatrixA = np.zeros((c.populationSize, c.numberOfGenerations))
         self.fitnessMatrixB = np.zeros((c.populationSize, c.numberOfGenerations))
+    
+    def Create_World(self):
+        import pyrosim.pyrosim as ps
+        import random
+        ps.Start_SDF(f"world.sdf")
+
+        for i in range(-10,1):
+            for j in range(-5,5):
+                if random.random() < .2:
+                    ps.Send_Cube(name="Box", pos=[i,j,.5], size=[1,1,1])
+        ps.End()
 
     def Evaluate(self, solutions, mode):
         for i in solutions:

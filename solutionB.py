@@ -4,6 +4,7 @@ import pyrosim.pyrosim as ps
 import random
 import time
 import constants as c
+import shutil
 
 class SOLUTION:
 
@@ -16,7 +17,7 @@ class SOLUTION:
 
 
     def Start_Simulation(self, mode):
-        self.Create_World()
+        shutil.copy("world.sdf", f"world{self.myID}.sdf")  # copy frozen world
         self.Create_Body()
         self.Create_Brain()
         os.system(f"start /B python simulate.py {mode} {self.myID}")
@@ -31,15 +32,15 @@ class SOLUTION:
 
         os.system(f"del fitness{self.myID}.txt")
 
-    def Create_World(self):
+    '''def Create_World(self):
 
         ps.Start_SDF(f"world{self.myID}.sdf")
 
-        for i in range(-5,5):
+        for i in range(-10,2):
             for j in range(-5,5):
                 if random.random() < .2:
                     ps.Send_Cube(name="Box", pos=[i,j,.5], size=[1,1,1])
-        ps.End()
+        ps.End()'''
 
     def Create_Body(self):
 
