@@ -82,9 +82,9 @@ class PARALLEL_HILL_CLIMBER:
 
     def Record_Fitness(self, currentGeneration):
         for i in self.childrenA.keys():
-            self.fitnessMatrixA[i, currentGeneration] = self.childrenA[i].fitness
+            self.fitnessMatrixA[i, currentGeneration] = max(self.parentsA[i].fitness, self.childrenA[i].fitness)
         for i in self.childrenB.keys():
-            self.fitnessMatrixB[i, currentGeneration] = self.childrenB[i].fitness
+            self.fitnessMatrixB[i, currentGeneration] = max(self.parentsB[i].fitness, self.childrenB[i].fitness)
 
     def Print(self):
         print("\n--- Population A ---")
