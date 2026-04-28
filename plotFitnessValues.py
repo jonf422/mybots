@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 matrixA = np.load('fitnessMatrix_A.npy')
 matrixB = np.load('fitnessMatrix_B.npy')
 
+plt.figure()
 for i in range(matrixA.shape[0]):
     plt.plot(matrixA[i, :], linewidth=1.0, color="blue", alpha=.8)
 
@@ -19,7 +20,7 @@ plt.ylabel("Fitness")
 plt.title("Fitness over Generations: A vs B")
 plt.legend()
 plt.tight_layout()
-plt.show()
+#plt.show()
 
 avgA = np.mean(matrixA, axis=0)
 avgB = np.mean(matrixB, axis=0)
@@ -29,6 +30,7 @@ stdB = np.std(matrixB, axis=0)
 
 generations = np.arange(avgA.shape[0])
 
+plt.figure()
 plt.plot(generations, avgA, linewidth=1.5, color="blue", label="A: Shared leg lengths")
 plt.plot(generations, avgB, linewidth=1.5, color="red",  label="B: Independent leg lengths")
 
