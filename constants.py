@@ -26,5 +26,5 @@ numSensorNeurons = 4
 numMotorNeurons = 8
 
 #Evolution
-numberOfGenerations = 10
-populationSize = 5
+numberOfGenerations = 50
+populationSize = 10

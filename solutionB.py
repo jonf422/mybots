@@ -13,7 +13,11 @@ class SOLUTION:
         self.weights = np.random.rand(c.numSensorNeurons,c.numMotorNeurons)
         self.weights = 2*self.weights-1
 
-        self.legLengths = 2*np.random.rand(2,4)+.5 #4 legs, upper/lower
+        upperLength = 2 * random.random() + 0.5 #Initialize with upper/lower legs equal
+        lowerLength = 2 * random.random() + 0.5
+        self.legLengths = np.array(
+            [[upperLength, upperLength, upperLength, upperLength],  # row 0: upper
+            [lowerLength, lowerLength, lowerLength, lowerLength]])   # row 1: lower
 
 
     def Start_Simulation(self, mode):
@@ -24,7 +28,7 @@ class SOLUTION:
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists(f"fitness{self.myID}.txt"):
-            time.sleep(0.01)
+            time.sleep(0.1)
 
         with open(f"fitness{self.myID}.txt", "r") as file:
             self.fitness = float(file.read())

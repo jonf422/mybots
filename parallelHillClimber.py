@@ -3,6 +3,8 @@ import solutionB
 import constants as c
 import copy
 import numpy as np
+import pyrosim.pyrosim as ps
+import random
 
 class PARALLEL_HILL_CLIMBER:
 
@@ -22,8 +24,6 @@ class PARALLEL_HILL_CLIMBER:
         self.fitnessMatrixB = np.zeros((c.populationSize, c.numberOfGenerations))
     
     def Create_World(self):
-        import pyrosim.pyrosim as ps
-        import random
         ps.Start_SDF(f"world.sdf")
 
         for i in range(-10,1):
@@ -39,7 +39,7 @@ class PARALLEL_HILL_CLIMBER:
         for i in solutions:
             solutions[i].Wait_For_Simulation_To_End()
 
-    def Evolve(self, mode):
+    def Evolve(self, mode, testNum):
             self.Evaluate(self.parentsA, mode)
             self.Evaluate(self.parentsB, mode)
 
@@ -47,10 +47,10 @@ class PARALLEL_HILL_CLIMBER:
                 self.Evolve_For_One_Generation("DIRECT", currentGeneration)
             
             # Save fitness matrices for both variants
-            np.savetxt("fitnessMatrix_A.txt", self.fitnessMatrixA)
-            np.save("fitnessMatrix_A.npy", self.fitnessMatrixA)
-            np.savetxt("fitnessMatrix_B.txt", self.fitnessMatrixB)
-            np.save("fitnessMatrix_B.npy", self.fitnessMatrixB)
+            #np.savetxt("fitnessMatrix_A.txt", self.fitnessMatrixA)
+            np.save(f"ABData/fitnessMatrix_A{testNum}.npy", self.fitnessMatrixA)
+            #np.savetxt("fitnessMatrix_B.txt", self.fitnessMatrixB)
+            np.save(f"ABData/fitnessMatrix_B{testNum}.npy", self.fitnessMatrixB)
             print("Fitness matrices saved for A and B.")
 
     def Evolve_For_One_Generation(self, mode, currentGeneration):
